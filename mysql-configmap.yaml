@@ -1,0 +1,12 @@
+apiVersion: v1
+data:
+  MYSQL_DATABASE: pfa
+  MYSQL_PASSWORD: p@ssW0rd!
+  MYSQL_ROOT_PASSWORD: p@ssW0rd!
+  MYSQL_USER: pfa
+kind: ConfigMap
+metadata:
+  labels:
+    app: mysql-deployment
+  name: mysql-pfa-backend-config
+  namespace: pfa
