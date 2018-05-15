@@ -5,7 +5,7 @@ metadata:
   namespace: pfa
 spec:
   replicas: 1
-  template: 
+  template:
     metadata:
       labels:
         app: artifactory-deployment
@@ -16,3 +16,11 @@ spec:
         ports:
         - name: http-port
           containerPort: 8081
+        volumeMounts:
+          - mountPath: /var/opt/jfrog/artifactory
+            name: artifactory-volumemount
+      volumes:
+        - gcePersistentDisk:
+            fsType: ext4
+            pdName: pipelines-pfa-artifactory
+          name: artifactory-volumemount

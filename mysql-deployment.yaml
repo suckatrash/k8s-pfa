@@ -13,9 +13,14 @@ spec:
       containers:
       - name: mysql
         image: mysql:5.7
+        args:
+          - "--ignore-db-dir=lost+found"
         ports:
         - name: http-port
           containerPort: 3306
+        volumeMounts:
+        - mountPath: "/var/lib/mysql"
+          name: mysql-volumemount
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
@@ -37,3 +42,8 @@ spec:
             configMapKeyRef:
               key: MYSQL_DATABASE
               name: mysql-pfa-backend-config
+      volumes:
+        - gcePersistentDisk:
+            fsType: ext4
+            pdName: pipelines-pfa-mysql
+          name: mysql-volumemount
